@@ -1,0 +1,20 @@
+name:                config-joiner-json
+version:             0.0.1.0
+-- synopsis:
+-- description:
+homepage:            https://github.com/jhmcstanton/config-joiner-json#readme
+license:             BSD3
+license-file:        LICENSE
+author:              Jim McStanton
+maintainer:          jim@jhmcstanton.com
+copyright:           2018 Jim McStanton
+category:            Web
+build-type:          Simple
+cabal-version:       >=1.10
+extra-source-files:  README.md
+
+executable config-joiner-json
+  hs-source-dirs:      src
+  main-is:             Main.hs
+  default-language:    Haskell2010
+  build-depends:       base >= 4.7 && < 5
