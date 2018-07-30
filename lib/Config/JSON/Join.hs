@@ -5,7 +5,7 @@ import qualified Data.HashMap.Strict as M
 
 import           Prelude (fmap, ($))
 
-import Config.JSON.Types
+import           Config.JSON.Types (CommonConfig(..), EnvConfig(..))
 
 {-|
 Joins a common JSON configuration file with

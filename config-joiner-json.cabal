@@ -22,11 +22,14 @@ library
 
     exposed-modules:
       Config.JSON.Join
+      Config.JSON.IO
       Config.JSON.Types
 
     build-depends:
-        base >= 4.7 && < 5,
         aeson,
+        base >= 4.7 && < 5,
+        bytestring,
+        hashable,
         unordered-containers
                      
 executable config-joiner-json
