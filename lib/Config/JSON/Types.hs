@@ -22,14 +22,14 @@ newtype EnvConfig = EnvConfig { envValue :: Value }
 -- |The path to the common configuration file
 newtype CommonConfigFile = CommonConfigFile {
   commonConfigFile :: FilePath
-  } deriving (Eq, Ord)
+  } deriving (Eq, Ord, Show)
 
 -- |The path to the source environment configuration file
 -- |and the target output file.
 data EnvConfigFile = EnvConfigFile {
   envConfigSourceFile :: FilePath,
   envConfigTargetFile :: FilePath
-  } deriving (Eq, Ord)
+  } deriving (Eq, Ord, Show)
 
 instance Hashable EnvConfigFile where
   hashWithSalt :: Int -> EnvConfigFile -> Int
