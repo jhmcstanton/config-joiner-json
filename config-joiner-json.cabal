@@ -41,3 +41,18 @@ executable config-joiner-json
         base >= 4.7 && < 5,
         aeson,
         unordered-containers
+
+test-suite test-config-joiner-json
+    type:                exitcode-stdio-1.0
+    hs-source-dirs:      tests 
+    main-is:             TestSuite.hs
+    ghc-options:         -Wall -threaded
+    default-language:    Haskell2010
+
+    build-depends:
+        base,
+        bytestring,
+        config-joiner-json,
+        tasty,
+        tasty-hunit, 
+        unordered-containers
