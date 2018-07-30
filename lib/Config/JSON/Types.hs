@@ -1,4 +1,4 @@
-{-# LANGUAGE InstanceSigs #-}
+{-# LANGUAGE EmptyDataDecls, InstanceSigs #-}
 module Config.JSON.Types where
 
 import           Data.Aeson (Value)
@@ -13,7 +13,19 @@ import           Data.Hashable
 newtype CommonConfig = CommonConfig { commonValue :: Value }
 
 -- |The environment specific values.
-newtype EnvConfig = EnvConfig { envValue :: Value }
+newtype EnvConfig a = EnvConfig { envValue :: Value }
+
+--
+-- Status types to indicate if an environment file is pre or post
+-- processing
+--
+
+-- |Indicates that the tagged type has not been processed
+data PreProcess
+
+-- |Indicates that the tagged type has been processed
+data PostProcess
+
 
 --
 -- File newtypes

@@ -5,7 +5,12 @@ import qualified Data.HashMap.Strict as M
 
 import           Prelude (fmap, ($))
 
-import           Config.JSON.Types (CommonConfig(..), EnvConfig(..))
+import           Config.JSON.Types (
+  CommonConfig(..),
+  EnvConfig(..),
+  PreProcess,
+  PostProcess
+  )
 
 {-|
 Joins a common JSON configuration file with
@@ -16,7 +21,7 @@ config). Overridden fields will be picked in the output JSON.
 Note that this function expects that the two JSON files have the same common
 root.
 -}
-join :: CommonConfig -> [EnvConfig] -> [EnvConfig]
+join :: CommonConfig -> [EnvConfig PreProcess] -> [EnvConfig PostProcess]
 join common = fmap (join' common)
 
 {-|
@@ -29,7 +34,7 @@ picked in the output JSON.
 Note that this function expects that the two JSON files have the same common
 root.
 -}
-join' :: CommonConfig -> EnvConfig -> EnvConfig
+join' :: CommonConfig -> EnvConfig PreProcess -> EnvConfig PostProcess
 join' (CommonConfig common) (EnvConfig env) = EnvConfig (joinJson common env) where
   joinJson :: Value -> Value -> Value
   joinJson (Object commonObj) (Object envObj) = Object $ M.unionWith joinJson commonObj envObj
