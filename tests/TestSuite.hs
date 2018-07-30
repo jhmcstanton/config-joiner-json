@@ -2,6 +2,7 @@ module Main ( main ) where
 
 import qualified Config.JSON.Types.Tests
 
+import           Prelude (IO, ($))
 import           Test.Tasty (defaultMain, testGroup)
 
 

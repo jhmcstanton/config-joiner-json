@@ -2,6 +2,7 @@ module Config.JSON.Types.Tests (tests) where
 
 import           Config.JSON.Types
 
+import           Prelude (Maybe(..), ($), fmap, uncurry)
 import           Test.Tasty (TestTree, testGroup)
 import           Test.Tasty.HUnit (Assertion, (@=?), testCase)
 

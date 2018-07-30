@@ -4,6 +4,7 @@ module Config.JSON.Types where
 import           Data.Aeson (Value)
 import           Data.ByteString.Lazy
 import           Data.Hashable
+import           Prelude 
 
 --
 -- Parsed JSON newtypes
