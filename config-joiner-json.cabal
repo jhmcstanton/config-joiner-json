@@ -58,6 +58,7 @@ test-suite test-config-joiner-json
     default-language:    Haskell2010
 
     other-modules:
+        Config.JSON.TestTypes
         Config.JSON.Types.Tests
 
     build-depends:
