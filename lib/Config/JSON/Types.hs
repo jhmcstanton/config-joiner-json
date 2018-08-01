@@ -23,10 +23,8 @@ module Config.JSON.Types (
   ) where
 
 import           Data.Aeson (
-    FromJSON,
     ToJSON,
     Value,
-    parseJSON,
     toJSON
   )
 import           Data.ByteString.Lazy
