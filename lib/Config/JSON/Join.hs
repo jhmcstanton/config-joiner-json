@@ -1,3 +1,13 @@
+-------------------------------------------------------------------------------
+-- |
+-- Module      : Config.JSON.Join
+-- Maintainer  : Jim McStanton
+-- Stability   : experimental
+-- Portability : portable
+--
+-- Functions for joining common configuration values with specific values.
+--
+-------------------------------------------------------------------------------
 module Config.JSON.Join (join, join') where
 
 import           Data.Aeson

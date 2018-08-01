@@ -1,3 +1,13 @@
+-------------------------------------------------------------------------------
+-- |
+-- Module      : Config.JSON
+-- Maintainer  : Jim McStanton
+-- Stability   : experimental
+-- Portability : portable
+--
+-- Helper main functions for manipulating JSON files.
+--
+-------------------------------------------------------------------------------
 module Config.JSON where
 
 import           Config.JSON.Bytes

@@ -1,6 +1,16 @@
 {-# LANGUAGE EmptyDataDecls #-}
 {-# LANGUAGE InstanceSigs   #-}
 {-# LANGUAGE DeriveGeneric  #-}
+-------------------------------------------------------------------------------
+-- |
+-- Module      : Config.JSON.Types
+-- Maintainer  : Jim McStanton
+-- Stability   : experimental
+-- Portability : portable
+--
+-- Types related to Config.JSON.
+--
+-------------------------------------------------------------------------------
 module Config.JSON.Types (
     CommonConfig(..),
     EnvConfig(..),

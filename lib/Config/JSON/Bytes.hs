@@ -1,3 +1,14 @@
+-------------------------------------------------------------------------------
+-- |
+-- Module      : Config.JSON.Bytes
+-- Maintainer  : Jim McStanton
+-- Stability   : experimental
+-- Portability : portable
+--
+-- Functions for decoding and encoding JSON values from ByteStrings
+--
+-------------------------------------------------------------------------------
+
 module Config.JSON.Bytes where
 
 import           Data.Aeson

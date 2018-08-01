@@ -1,3 +1,14 @@
+-------------------------------------------------------------------------------
+-- |
+-- Module      : Config.JSON.IO
+-- Maintainer  : Jim McStanton
+-- Stability   : experimental
+-- Portability : portable
+--
+-- Functions for reading configuration source files from disk and writing
+-- generated JSON values to disk.
+--
+-------------------------------------------------------------------------------
 module           Config.JSON.IO (
     readConfigFiles,
     writeConfigFiles
