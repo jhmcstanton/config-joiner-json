@@ -19,7 +19,7 @@ will build this project.
 requirements are:
 - A common JSON file to combine specific configurations with
 - A directory of source JSON files that will be joined against this common file
--- Note that `config-joiner-json` does not yet support recursively generating joined files.
+    - Note that `config-joiner-json` does not yet support recursively generating joined files.
 - A _different_ target directory to write the generated and completed files to. 
 
 ## Usage
@@ -64,4 +64,4 @@ This is currently still in WIP (not yet released to Hackage or anything), this p
 
 - Test Coverage
 - Features:
--- Search directories recursively for config files
+    - Search directories recursively for config files
