@@ -8,7 +8,6 @@
 -- Functions for decoding and encoding JSON values from ByteStrings
 --
 -------------------------------------------------------------------------------
-
 module Config.JSON.Bytes where
 
 import           Data.Aeson
@@ -30,6 +29,10 @@ decodeFiles (CommonConfigBytes commonBytes) envs = do
   pathsToConfigs <- traverse (eitherDecode . envConfigBytes) envs
   pure (commonJson, pathsToConfigs)
 
+{-|
+Encodes processed JSON values to ByteStrings that are ready
+to write to disk.
+-}
 encodeFiles :: HashMap EnvConfigFile (EnvConfig PostProcess)
   -> HashMap EnvConfigFile (EnvConfigBytes PostProcess)
 encodeFiles = fmap (EnvConfigBytes . encode)
