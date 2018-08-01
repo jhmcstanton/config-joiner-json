@@ -1,6 +1,5 @@
 {-# LANGUAGE EmptyDataDecls #-}
 {-# LANGUAGE InstanceSigs   #-}
-{-# LANGUAGE DeriveGeneric  #-}
 -------------------------------------------------------------------------------
 -- |
 -- Module      : Config.JSON.Types
@@ -27,13 +26,11 @@ import           Data.Aeson (
     FromJSON,
     ToJSON,
     Value,
-    defaultOptions,
-    genericToEncoding,
-    toEncoding
+    parseJSON,
+    toJSON
   )
 import           Data.ByteString.Lazy
 import           Data.Hashable
-import           GHC.Generics
 import           Prelude
 
 --
@@ -41,22 +38,13 @@ import           Prelude
 --
 
 -- |The configuration values that are common across all environments.
-newtype CommonConfig = CommonConfig {
-    commonValue :: Value
-  } deriving (Generic)
-
-instance FromJSON CommonConfig where
-instance ToJSON   CommonConfig where
-  toEncoding = genericToEncoding defaultOptions
+newtype CommonConfig = CommonConfig { commonValue :: Value }
 
 -- |The environment specific values.
-newtype EnvConfig a = EnvConfig {
-    envValue :: Value
-  } deriving (Generic)
+newtype EnvConfig a = EnvConfig { envValue :: Value }
 
-instance FromJSON (EnvConfig a)
 instance ToJSON   (EnvConfig a) where
-  toEncoding = genericToEncoding defaultOptions
+    toJSON = envValue
 
 --
 -- Status types to indicate if an environment file is pre or post

@@ -27,7 +27,7 @@ decodeFiles :: CommonConfigBytes
 decodeFiles (CommonConfigBytes commonBytes) envs = do
   commonJson     <- eitherDecode commonBytes
   pathsToConfigs <- traverse (eitherDecode . envConfigBytes) envs
-  pure (commonJson, pathsToConfigs)
+  pure (CommonConfig commonJson, fmap EnvConfig pathsToConfigs)
 
 {-|
 Encodes processed JSON values to ByteStrings that are ready
