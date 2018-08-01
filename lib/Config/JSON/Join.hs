@@ -3,7 +3,7 @@ module Config.JSON.Join (join, join') where
 import           Data.Aeson
 import qualified Data.HashMap.Strict as M
 
-import           Prelude (fmap, ($))
+import           Prelude (Functor, fmap, ($))
 
 import           Config.JSON.Types (
   CommonConfig(..),
@@ -21,7 +21,7 @@ config). Overridden fields will be picked in the output JSON.
 Note that this function expects that the two JSON files have the same common
 root.
 -}
-join :: CommonConfig -> [EnvConfig PreProcess] -> [EnvConfig PostProcess]
+join :: Functor f => CommonConfig -> f (EnvConfig PreProcess) -> f (EnvConfig PostProcess)
 join common = fmap (join' common)
 
 {-|

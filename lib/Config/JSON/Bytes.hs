@@ -1,4 +1,4 @@
-module Config.JSON.Decode where
+module Config.JSON.Bytes where
 
 import           Data.Aeson
 import           Data.HashMap.Lazy (HashMap)

@@ -21,7 +21,8 @@ library
     default-language:  Haskell2010
 
     exposed-modules:
-      Config.JSON.Decode
+      Config.JSON
+      Config.JSON.Bytes
       Config.JSON.Join
       Config.JSON.IO
       Config.JSON.Types
@@ -33,7 +34,7 @@ library
         hashable,
         unordered-containers
 
-    extensions:
+    default-extensions:
         NoImplicitPrelude 
                      
 executable config-joiner-json
@@ -47,7 +48,7 @@ executable config-joiner-json
         base >= 4.7 && < 5,
         unordered-containers
 
-    extensions:
+    default-extensions:
         NoImplicitPrelude
 
 test-suite test-config-joiner-json
@@ -69,5 +70,5 @@ test-suite test-config-joiner-json
         tasty-hunit, 
         unordered-containers
 
-    extensions:
+    default-extensions:
         NoImplicitPrelude
