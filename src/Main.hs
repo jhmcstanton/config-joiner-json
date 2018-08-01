@@ -34,9 +34,10 @@ longDescription = "Factor out common configuration from JSON configuration files
 
 joinFiles :: Options -> IO ()
 joinFiles (Options commonFilePath srcDir targetDir) = do
-  srcConfigPaths <- getDirectoryContents srcDir
+  srcConfigFileNames <- listDirectory srcDir
+  let srcConfigPaths = fmap (\name -> srcDir </> name) srcConfigFileNames
   createDirectoryIfMissing True targetDir
-  let targetConfigPaths = fmap (replaceDirectory targetDir) srcConfigPaths
+  let targetConfigPaths = fmap (\path -> replaceDirectory path targetDir) srcConfigPaths
       envFiles = zipWith envConfigFile srcConfigPaths targetConfigPaths
   if any isNothing envFiles
     then error "Source file paths may not be the same as the target file path"
