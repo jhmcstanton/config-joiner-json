@@ -1,20 +1,52 @@
-{-# LANGUAGE EmptyDataDecls, InstanceSigs #-}
-module Config.JSON.Types where
+{-# LANGUAGE EmptyDataDecls #-}
+{-# LANGUAGE InstanceSigs   #-}
+{-# LANGUAGE DeriveGeneric  #-}
+module Config.JSON.Types (
+    CommonConfig(..),
+    EnvConfig(..),
+    PreProcess,
+    PostProcess,
+    CommonConfigFile(..),
+    EnvConfigFile(..),
+    CommonConfigBytes(..),
+    EnvConfigBytes(..),
+    envConfigFile
+  ) where
 
-import           Data.Aeson (Value)
+import           Data.Aeson (
+    FromJSON,
+    ToJSON,
+    Value,
+    defaultOptions,
+    genericToEncoding,
+    toEncoding
+  )
 import           Data.ByteString.Lazy
 import           Data.Hashable
-import           Prelude 
+import           GHC.Generics
+import           Prelude
 
 --
 -- Parsed JSON newtypes
 --
 
 -- |The configuration values that are common across all environments.
-newtype CommonConfig = CommonConfig { commonValue :: Value }
+newtype CommonConfig = CommonConfig {
+    commonValue :: Value
+  } deriving (Generic)
+
+instance FromJSON CommonConfig where
+instance ToJSON   CommonConfig where
+  toEncoding = genericToEncoding defaultOptions
 
 -- |The environment specific values.
-newtype EnvConfig a = EnvConfig { envValue :: Value }
+newtype EnvConfig a = EnvConfig {
+    envValue :: Value
+  } deriving (Generic)
+
+instance FromJSON (EnvConfig a)
+instance ToJSON   (EnvConfig a) where
+  toEncoding = genericToEncoding defaultOptions
 
 --
 -- Status types to indicate if an environment file is pre or post
@@ -65,4 +97,4 @@ envConfigFile source target =
 newtype CommonConfigBytes = CommonConfigBytes { commonConfigBytes :: ByteString }
 
 -- |The contents of an environment configuration file
-newtype EnvConfigBytes = EnvConfigBytes { envConfigBytes :: ByteString }
+newtype EnvConfigBytes a = EnvConfigBytes { envConfigBytes :: ByteString }

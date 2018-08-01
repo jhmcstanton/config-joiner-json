@@ -1,4 +1,4 @@
-module Config.JSON.Join where
+module Config.JSON.Join (join, join') where
 
 import           Data.Aeson
 import qualified Data.HashMap.Strict as M
