@@ -1,0 +1,12 @@
+{
+    "common-arr": [
+        "overridden"
+    ],
+    "common-key-1": "overridden-common-key-1",
+    "common-key-2": "common-val-2",
+    "common-obj": {
+        "sub-common-key-1": "sub-common-val-1",
+        "sub-common-key-2": "sub-common-val-2",
+        "sub-common-key-3": "sub-common-key-3"
+    }
+}

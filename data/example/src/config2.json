@@ -1,0 +1,9 @@
+{
+    "common-obj" : {
+        "sub-common-key-3" : "sub-common-key-3"
+    },
+    "common-arr": [
+        "overridden"
+    ],
+    "common-key-1" : "overridden-common-key-1"
+}

@@ -1,0 +1,7 @@
+{
+    "common-obj" : {
+        "another-obj" : {
+            "sub-sub-key" : "sub-sub-value"
+        }
+    }
+}

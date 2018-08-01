@@ -1,0 +1,18 @@
+{
+    "common-arr": [
+        1,
+        2,
+        3
+    ],
+    "common-key-1": "common-val-1",
+    "common-key-2": "common-val-2",
+    "common-obj": {
+        "sub-common-key-1": "sub-common-val-1",
+        "sub-common-key-2": "sub-common-val-2"
+    },
+    "unrelated-key-1": "unrelated-val-1",
+    "unrelated-obj-1": {
+        "unrelated-sub-val-1": "unrelated-sub-key-1",
+        "unrelated-sub-val-2": "unrelated-sub-key-2"
+    }
+}
