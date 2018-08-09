@@ -25,9 +25,9 @@ configuration files.
 joinMain :: CommonConfigFile -> [EnvConfigFile] -> IO ()
 joinMain common envs = do
   (commonBytes, envBytes) <- readConfigFiles common envs
-  let decodedFiles = decodeFiles commonBytes envBytes
+  let decodedFiles = decodeBytes commonBytes envBytes
   case decodedFiles of
     Left msg -> error msg
     Right (commonJson, envJsons) -> do
-      let outputEnvBytes = encodeFiles . join commonJson $ envJsons
+      let outputEnvBytes = encodeBytes . join commonJson $ envJsons
       writeConfigFiles outputEnvBytes
