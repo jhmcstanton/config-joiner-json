@@ -1,6 +1,7 @@
-{-# LANGUAGE EmptyDataDecls #-}
-{-# LANGUAGE InstanceSigs   #-}
-{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE EmptyDataDecls    #-}
+{-# LANGUAGE InstanceSigs      #-}
+{-# LANGUAGE TypeFamilies      #-}
+{-# LANGUAGE FlexibleInstances #-}
 -------------------------------------------------------------------------------
 -- |
 -- Module      : Config.JSON.Types
@@ -19,8 +20,7 @@ module Config.JSON.Types (
     CommonConfig,
     PreProcess,
     PostProcess,
-    CommonConfigFile(..),
-    EnvConfigFile(..),
+    ConfigFile(..),
     ByteType,
     ConfigBytes(..),
     CommonConfigBytes,
@@ -90,20 +90,23 @@ data PostProcess
 -- File newtypes
 --
 
+-- |A configuration file path.
+data family ConfigFile a
+
 -- |The path to the common configuration file
-newtype CommonConfigFile = CommonConfigFile {
+newtype instance ConfigFile Common = CommonConfigFile {
   commonConfigFile :: FilePath
   } deriving (Eq, Ord, Show)
 
 -- |The path to the source environment configuration file
 -- |and the target output file.
-data EnvConfigFile = EnvConfigFile {
+data instance ConfigFile Env = EnvConfigFile {
   envConfigSourceFile :: FilePath,
   envConfigTargetFile :: FilePath
   } deriving (Eq, Ord, Show)
 
-instance Hashable EnvConfigFile where
-  hashWithSalt :: Int -> EnvConfigFile -> Int
+instance Hashable (ConfigFile Env) where
+  hashWithSalt :: Int -> (ConfigFile Env) -> Int
   hashWithSalt salt (EnvConfigFile source target) =
     let
       sourceHash = hashWithSalt salt source
@@ -111,9 +114,9 @@ instance Hashable EnvConfigFile where
     in
       sourceHash * targetHash
 
--- |Smart constructor for creating instances of EnvConfigFile.
+-- |Smart constructor for creating instances of ConfigFile Env.
 -- |Ensures that the source and target are not equal
-envConfigFile :: FilePath -> FilePath -> Maybe EnvConfigFile
+envConfigFile :: FilePath -> FilePath -> Maybe (ConfigFile Env)
 envConfigFile source target =
   if source == target
   then Nothing

@@ -21,9 +21,9 @@ import           Config.JSON.Types
 Converts read ByteStrings into raw Aeson Values for manipulation.
 If any cannot be decoded properly this returns Left.
 -}
-decodeBytes :: CommonConfigBytes 
-  -> HashMap EnvConfigFile (ConfigBytes Env PreProcess)
-  -> Either String (CommonConfig, HashMap EnvConfigFile (Config Env PreProcess))
+decodeBytes :: CommonConfigBytes
+  -> HashMap (ConfigFile Env) (ConfigBytes Env PreProcess)
+  -> Either String (CommonConfig, HashMap (ConfigFile Env) (Config Env PreProcess))
 decodeBytes commonBytes envs = do
   commonJson     <- decodeBytes' commonBytes
   pathsToConfigs <- traverse decodeBytes' envs
@@ -39,6 +39,6 @@ decodeBytes' = fmap fromValue . eitherDecode . toBytes
 Encodes processed JSON values to ByteStrings that are ready
 to write to disk.
 -}
-encodeBytes :: HashMap EnvConfigFile (Config Env PostProcess)
-  -> HashMap EnvConfigFile (ConfigBytes Env PostProcess)
+encodeBytes :: HashMap (ConfigFile Env) (Config Env PostProcess)
+  -> HashMap (ConfigFile Env) (ConfigBytes Env PostProcess)
 encodeBytes = fmap (fromBytes . encode)

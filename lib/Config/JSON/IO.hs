@@ -29,9 +29,9 @@ all environment configuration files (if any) into their Byte representations.
 
 Note that this may throw an exception if an error occurs during file reading.
 -}
-readConfigFiles :: CommonConfigFile
-  -> [EnvConfigFile]
-  -> IO (CommonConfigBytes, HashMap EnvConfigFile (ConfigBytes Env PreProcess))
+readConfigFiles :: (ConfigFile Common)
+  -> [ConfigFile Env]
+  -> IO (CommonConfigBytes, HashMap (ConfigFile Env) (ConfigBytes Env PreProcess))
 readConfigFiles (CommonConfigFile common) envFiles = do
   commonBytes <- readFile common
   envBytes <- sequence . fmap (readFile . envConfigSourceFile) $ envFiles
@@ -45,7 +45,7 @@ Writes generated JSON values to their target locations.
 Note that this may throw an exception if an error occurs during file writing,
 and file generation may be in a partial status.
 -}
-writeConfigFiles :: HashMap EnvConfigFile (ConfigBytes Env PostProcess) -> IO ()
+writeConfigFiles :: HashMap (ConfigFile Env) (ConfigBytes Env PostProcess) -> IO ()
 writeConfigFiles = traverse_ (uncurry writeConfigFile) . M.toList 
 
 {-|
@@ -53,5 +53,5 @@ Writes a generated JSON value to its target location.
 
 Note that this may throw an exception if an error occurs during file writing.
 -}
-writeConfigFile :: EnvConfigFile -> (ConfigBytes Env PostProcess) -> IO ()
+writeConfigFile :: (ConfigFile Env) -> (ConfigBytes Env PostProcess) -> IO ()
 writeConfigFile (EnvConfigFile _ target) (EnvConfigBytes json) = writeFile target json

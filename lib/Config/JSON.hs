@@ -22,7 +22,7 @@ Helper main method when using this as a library. Plumbs together
 the work of reading, parsing, joining, and finally writing the
 configuration files.
 -}
-joinMain :: CommonConfigFile -> [EnvConfigFile] -> IO ()
+joinMain :: (ConfigFile Common) -> [ConfigFile Env] -> IO ()
 joinMain common envs = do
   (commonBytes, envBytes) <- readConfigFiles common envs
   let decodedFiles = decodeBytes commonBytes envBytes
