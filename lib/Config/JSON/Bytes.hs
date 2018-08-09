@@ -21,18 +21,24 @@ import           Config.JSON.Types
 Converts read ByteStrings into raw Aeson Values for manipulation.
 If any cannot be decoded properly this returns Left.
 -}
-decodeBytes :: CommonConfigBytes
-  -> HashMap EnvConfigFile (EnvConfigBytes PreProcess)
-  -> Either String (CommonConfig, HashMap EnvConfigFile (EnvConfig PreProcess))
-decodeBytes (CommonConfigBytes commonBytes) envs = do
-  commonJson     <- eitherDecode commonBytes
-  pathsToConfigs <- traverse (eitherDecode . envConfigBytes) envs
-  pure (CommonConfig commonJson, fmap EnvConfig pathsToConfigs)
+decodeBytes :: CommonConfigBytes 
+  -> HashMap EnvConfigFile (ConfigBytes Env PreProcess)
+  -> Either String (CommonConfig, HashMap EnvConfigFile (Config Env PreProcess))
+decodeBytes commonBytes envs = do
+  commonJson     <- decodeBytes' commonBytes
+  pathsToConfigs <- traverse decodeBytes' envs
+  pure (commonJson, pathsToConfigs)
+
+{-|
+Decodes read bytes into the related JSON-wrapping type.
+-}
+decodeBytes' :: (ByteType a, ConfigType a) => ConfigBytes a b -> Either String (Config a b)
+decodeBytes' = fmap fromValue . eitherDecode . toBytes 
 
 {-|
 Encodes processed JSON values to ByteStrings that are ready
 to write to disk.
 -}
-encodeBytes :: HashMap EnvConfigFile (EnvConfig PostProcess)
-  -> HashMap EnvConfigFile (EnvConfigBytes PostProcess)
-encodeBytes = fmap (EnvConfigBytes . encode)
+encodeBytes :: HashMap EnvConfigFile (Config Env PostProcess)
+  -> HashMap EnvConfigFile (ConfigBytes Env PostProcess)
+encodeBytes = fmap (fromBytes . encode)
