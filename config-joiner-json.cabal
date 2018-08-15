@@ -35,6 +35,7 @@ library
         unordered-containers
 
     default-extensions:
+        DataKinds
         NoImplicitPrelude 
                      
 executable config-joiner-json

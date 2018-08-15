@@ -1,5 +1,7 @@
 {-# LANGUAGE EmptyDataDecls #-}
+{-# LANGUAGE GADTs          #-}
 {-# LANGUAGE InstanceSigs   #-}
+{-# LANGUAGE KindSignatures #-}
 -------------------------------------------------------------------------------
 -- |
 -- Module      : Config.JSON.Types
@@ -13,8 +15,7 @@
 module Config.JSON.Types (
     CommonConfig(..),
     EnvConfig(..),
-    PreProcess,
-    PostProcess,
+    ProcessState(..),
     CommonConfigFile(..),
     EnvConfigFile(..),
     CommonConfigBytes(..),
@@ -39,7 +40,7 @@ import           Prelude
 newtype CommonConfig = CommonConfig { commonValue :: Value }
 
 -- |The environment specific values.
-newtype EnvConfig a = EnvConfig { envValue :: Value }
+newtype EnvConfig (a :: ProcessState) = EnvConfig { envValue :: Value }
 
 instance ToJSON   (EnvConfig a) where
     toJSON = envValue
@@ -49,11 +50,12 @@ instance ToJSON   (EnvConfig a) where
 -- processing
 --
 
--- |Indicates that the tagged type has not been processed
-data PreProcess
-
--- |Indicates that the tagged type has been processed
-data PostProcess
+-- |Current processing state of the file. 
+data ProcessState :: * where
+  -- |Indicates that the tagged type has not been processed
+  PreProcess  :: ProcessState
+  -- |Indicates that the tagged type has been processed
+  PostProcess :: ProcessState
 
 
 --
@@ -93,4 +95,4 @@ envConfigFile source target =
 newtype CommonConfigBytes = CommonConfigBytes { commonConfigBytes :: ByteString }
 
 -- |The contents of an environment configuration file
-newtype EnvConfigBytes a = EnvConfigBytes { envConfigBytes :: ByteString }
+newtype EnvConfigBytes (a :: ProcessState) = EnvConfigBytes { envConfigBytes :: ByteString }

@@ -18,8 +18,7 @@ import           Prelude (Functor, fmap, ($))
 import           Config.JSON.Types (
   CommonConfig(..),
   EnvConfig(..),
-  PreProcess,
-  PostProcess
+  ProcessState(..),
   )
 
 {-|
@@ -31,7 +30,7 @@ config). Overridden fields will be picked in the output JSON.
 Note that this function expects that the two JSON files have the same common
 root.
 -}
-join :: Functor f => CommonConfig -> f (EnvConfig PreProcess) -> f (EnvConfig PostProcess)
+join :: Functor f => CommonConfig -> f (EnvConfig 'PreProcess) -> f (EnvConfig 'PostProcess)
 join common = fmap (join' common)
 
 {-|
@@ -44,7 +43,7 @@ picked in the output JSON.
 Note that this function expects that the two JSON files have the same common
 root.
 -}
-join' :: CommonConfig -> EnvConfig PreProcess -> EnvConfig PostProcess
+join' :: CommonConfig -> EnvConfig 'PreProcess -> EnvConfig 'PostProcess
 join' (CommonConfig common) (EnvConfig env) = EnvConfig (joinJson common env) where
   joinJson :: Value -> Value -> Value
   joinJson (Object commonObj) (Object envObj) = Object $ M.unionWith joinJson commonObj envObj
